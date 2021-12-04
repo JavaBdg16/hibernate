@@ -1,6 +1,12 @@
 package entity;
 
+import net.bytebuddy.implementation.bind.annotation.Default;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.*;
+import java.math.BigDecimal;
+import java.util.Date;
 
 @Entity
 @Table(name = "products")
@@ -10,10 +16,40 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column(nullable = false, length = 20)
+    private String name;
+
+    // @Transient
+    private String description;
+
+    @Column(nullable = false)
+    // TODO:  do zbadania
+    @ColumnDefault("1.00")
+    private BigDecimal price  = new BigDecimal(1.0);
+
+    @Temporal(TemporalType.DATE)
+    @CreationTimestamp
+    private Date date;
+
+    @Temporal(TemporalType.TIME)
+    @CreationTimestamp
+    private Date time;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @CreationTimestamp
+    private Date timestamp;
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     @Override
     public String toString() {
         return "Product{" +
                 "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", price=" + price +
                 '}';
     }
 }

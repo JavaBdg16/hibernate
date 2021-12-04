@@ -24,6 +24,8 @@ public abstract class EntityManagerWrapper {
             doWork(entityManager);
             entityManager.getTransaction().commit();
         } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
             entityManager.getTransaction().rollback();
         }
     }

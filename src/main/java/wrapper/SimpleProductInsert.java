@@ -15,6 +15,7 @@ public class SimpleProductInsert extends EntityManagerWrapper {
     public void doWork(EntityManager entityManager) throws Exception {
 
         Product product = new Product();
+        product.setName("Produkt numer 1");
         entityManager.persist(product);
     }
 }
