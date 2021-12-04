@@ -1,14 +1,19 @@
+package wrapper;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
 public abstract class EntityManagerWrapper {
 
-    public abstract void doWork() throws Exception;
+    private final EntityManagerFactory entityManagerFactory;
+
+    public abstract void doWork(EntityManager entityManager) throws Exception;
+
+    public EntityManagerWrapper(EntityManagerFactory entityManagerFactory) {
+        this.entityManagerFactory = entityManagerFactory;
+    }
 
     public void init() {
-        EntityManagerFactory entityManagerFactory =
-                Persistence.createEntityManagerFactory("productPU");
 
         EntityManager entityManager
                 = entityManagerFactory.createEntityManager();
@@ -16,12 +21,10 @@ public abstract class EntityManagerWrapper {
         entityManager.getTransaction().begin();
 
         try {
-            doWork();
+            doWork(entityManager);
             entityManager.getTransaction().commit();
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
-        } finally {
-            entityManagerFactory.close();
         }
     }
 }

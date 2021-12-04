@@ -1,6 +1,6 @@
-import entity.Product;
+import wrapper.SimpleProductInsert;
+import wrapper.SimpleProductSelect;
 
-import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
@@ -11,15 +11,15 @@ public class Main {
         EntityManagerFactory entityManagerFactory =
                 Persistence.createEntityManagerFactory("productPU");
 
-        EntityManager entityManager
-                = entityManagerFactory.createEntityManager();
+        SimpleProductInsert simpleProductInsert
+                = new SimpleProductInsert(entityManagerFactory);
+        simpleProductInsert.init();
 
-        entityManager.getTransaction().begin();
+        SimpleProductSelect simpleProductSelect
+                = new SimpleProductSelect(entityManagerFactory);
+        simpleProductSelect.init();
 
-        // do some work
-
-        entityManager.getTransaction().commit();
-
-        entityManagerFactory.close();
+        // dla create-drop zamknięcie połączenia spowoduje drop
+        // entityManagerFactory.close();
     }
 }
