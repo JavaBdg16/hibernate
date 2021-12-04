@@ -1,3 +1,4 @@
+import wrapper.MassiveProductWrapper;
 import wrapper.SimpleProductInsert;
 import wrapper.SimpleProductSelect;
 
@@ -17,6 +18,12 @@ public class Main {
 
         SimpleProductSelect simpleProductSelect
                 = new SimpleProductSelect(entityManagerFactory);
+        simpleProductSelect.init();
+
+        MassiveProductWrapper massiveProductWrapper
+                = new MassiveProductWrapper(entityManagerFactory);
+        massiveProductWrapper.init();
+
         simpleProductSelect.init();
 
         // dla create-drop zamknięcie połączenia spowoduje drop
