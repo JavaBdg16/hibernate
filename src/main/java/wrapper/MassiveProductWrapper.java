@@ -89,5 +89,12 @@ public class MassiveProductWrapper extends EntityManagerWrapper {
         product = entityManager.find(Product.class, 2L);
         product.setName("Całkiem nowy name 2");
         entityManager.persist(product);
+
+        query = entityManager.createQuery("DELETE FROM Product P WHERE P.id = :id");
+        query.setParameter("id", 1L);
+        query.executeUpdate();
+
+        product = entityManager.find(Product.class, 2L);
+        entityManager.remove(product);
     }
 }
