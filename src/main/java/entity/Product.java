@@ -39,8 +39,16 @@ public class Product {
     @CreationTimestamp
     private Date timestamp;
 
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private ProductType productType;
+
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setProductType(ProductType productType) {
+        this.productType = productType;
     }
 
     @Override
