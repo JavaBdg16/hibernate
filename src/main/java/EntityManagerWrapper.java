@@ -1,13 +1,12 @@
-import entity.Product;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-public class Main {
+public abstract class EntityManagerWrapper {
 
-    public static void main(String[] args) {
+    public abstract void doWork() throws Exception;
 
+    public void init() {
         EntityManagerFactory entityManagerFactory =
                 Persistence.createEntityManagerFactory("productPU");
 
@@ -16,10 +15,13 @@ public class Main {
 
         entityManager.getTransaction().begin();
 
-        // do some work
-
-        entityManager.getTransaction().commit();
-
-        entityManagerFactory.close();
+        try {
+            doWork();
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
+        } finally {
+            entityManagerFactory.close();
+        }
     }
 }

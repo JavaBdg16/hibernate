@@ -3,8 +3,8 @@ package entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "products")
-public class Product {
+@Table(name = "users")
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
