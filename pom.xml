@@ -16,8 +16,8 @@
     <dependencies>
         <dependency>
             <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
-            <version>5.5.0.Final</version>
+            <artifactId>hibernate-core</artifactId>
+            <version>5.5.3.Final</version>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>

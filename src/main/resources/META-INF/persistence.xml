@@ -10,6 +10,8 @@
     -->
     <persistence-unit name="productPU">
 
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
         <properties>
             <property
                     name="javax.persistence.jdbc.driver"
