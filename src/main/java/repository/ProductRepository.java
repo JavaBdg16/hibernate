@@ -7,11 +7,12 @@ import javax.persistence.Query;
 import java.util.List;
 import java.util.Map;
 
-public class ProductRepository {
+public class ProductRepository extends Repository<Product> {
 
     private final EntityManager entityManager;
 
     public ProductRepository(EntityManager entityManager) {
+        super(entityManager, Product.class);
         this.entityManager = entityManager;
     }
 
@@ -25,11 +26,6 @@ public class ProductRepository {
         entityManager.persist(product);
 
         entityManager.getTransaction().commit();
-    }
-
-    public Product read(long id) {
-        // TODO: T.class
-        return entityManager.find(Product.class, id);
     }
 
     public void update(Product product) {
