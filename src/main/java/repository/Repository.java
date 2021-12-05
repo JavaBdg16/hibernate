@@ -17,20 +17,24 @@ public abstract class Repository<T> {
         return result;
     }
 
-    public void create(T t) {
+    public T create(T t) {
         entityManager.getTransaction().begin();
 
         entityManager.persist(t);
 
         entityManager.getTransaction().commit();
+
+        return t;
     }
 
-    public void update(T t) {
+    public T update(T t) {
         entityManager.getTransaction().begin();
 
         entityManager.persist(t);
 
         entityManager.getTransaction().commit();
+
+        return t;
     }
 
     public void delete(T t) {

@@ -50,17 +50,17 @@ public class Main {
         userAddress.setUserDetails(userDetails);
 
         // userAddressRepository.create(userAddress);
-        userDetailsRepository.create(userDetails);
+        userDetails = userDetailsRepository.create(userDetails);
 
-        UserDetails ud = userDetailsRepository.read(1L);
+        UserDetails ud = userDetailsRepository.read(userDetails.getId());
         UserAddress ua = ud.getAddress();
 
         // userDetailsRepository.delete(ud);
 
-        ud = userDetailsRepository.read(4L);
+        ud = userDetailsRepository.read(userDetails.getId());
         ua = ud.getAddress();
 
-        ua = userAddressRepository.read(1L);
+        ua = userAddressRepository.read(userDetails.getAddress().getId());
 
         UserDetails ud1 = new UserDetails();
         ud1.setUsername("anowak");
@@ -83,12 +83,12 @@ public class Main {
         mobile.addUserDetails(ud2);
         mobile.addUserDetails(ud3);
 
-        mobileRepository.create(mobile);
+        mobile = mobileRepository.create(mobile);
 
         ud.setMobile(mobile);
         userDetailsRepository.update(ud);
 
-        Mobile mobile1 = mobileRepository.read(7L);
+        Mobile mobile1 = mobileRepository.read(mobile.getId());
 
         System.out.println(mobile1.getBrand());
         System.out.println(mobile1.getModel());

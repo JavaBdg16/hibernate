@@ -16,20 +16,20 @@ public class ProductRepository extends Repository<Product> {
         this.entityManager = entityManager;
     }
 
-    public void create(Product product) {
+    public Product create(Product product) {
         if (product.getId() != 0) {
             throw new IllegalArgumentException("Entity exists");
         }
 
-        super.create(product);
+        return super.create(product);
     }
 
-    public void update(Product product) {
+    public Product update(Product product) {
         if (product.getId() == 0) {
             throw new IllegalArgumentException("Entity has no key");
         }
 
-        super.update(product);
+        return super.update(product);
     }
 
     public void deleteById(long id) {
