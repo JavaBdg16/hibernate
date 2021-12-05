@@ -2,7 +2,7 @@ package repository;
 
 import javax.persistence.EntityManager;
 
-public class Repository<T> {
+public abstract class Repository<T> {
 
     private final EntityManager entityManager;
     private final Class<T> typeParameterClass;
@@ -18,10 +18,6 @@ public class Repository<T> {
     }
 
     public void create(T t) {
-//        if (product.getId() != 0) {
-//            throw new IllegalArgumentException("Entity exists");
-//        }
-
         entityManager.getTransaction().begin();
 
         entityManager.persist(t);
@@ -30,10 +26,6 @@ public class Repository<T> {
     }
 
     public void update(T t) {
-//        if (product.getId() == 0) {
-//            throw new IllegalArgumentException("Entity has no key");
-//        }
-
         entityManager.getTransaction().begin();
 
         entityManager.persist(t);

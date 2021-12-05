@@ -11,7 +11,7 @@ public class UserDetails {
 
     private String username;
 
-    @OneToOne(mappedBy = "userDetails")
+    @OneToOne
 //    @JoinTable(
 //            name = "userdetails_to_useraddress",
 //            joinColumns = { @JoinColumn(name = "userDetailsId", referencedColumnName = "id")},

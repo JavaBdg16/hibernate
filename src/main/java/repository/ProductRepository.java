@@ -21,11 +21,7 @@ public class ProductRepository extends Repository<Product> {
             throw new IllegalArgumentException("Entity exists");
         }
 
-        entityManager.getTransaction().begin();
-
-        entityManager.persist(product);
-
-        entityManager.getTransaction().commit();
+        super.create(product);
     }
 
     public void update(Product product) {
@@ -33,19 +29,7 @@ public class ProductRepository extends Repository<Product> {
             throw new IllegalArgumentException("Entity has no key");
         }
 
-        entityManager.getTransaction().begin();
-
-        entityManager.persist(product);
-
-        entityManager.getTransaction().commit();
-    }
-
-    public void delete(Product product) {
-        entityManager.getTransaction().begin();
-
-        entityManager.remove(product);
-
-        entityManager.getTransaction().commit();
+        super.update(product);
     }
 
     public void deleteById(long id) {
@@ -77,7 +61,7 @@ public class ProductRepository extends Repository<Product> {
     /**
      * W świecie produkcyjnym tego typu metoda nie powinna istnieć
      * Metoda wyłącznie do celów szkoleniowych, do wywoływania zapytań HQL
-     * @param query
+     * @param queryStr,  params
      * @return
      */
     public List<Product> executeListResultQuery(String queryStr, Map<String, Object> parameters) {
@@ -93,7 +77,7 @@ public class ProductRepository extends Repository<Product> {
     /**
      * W świecie produkcyjnym tego typu metoda nie powinna istnieć
      * Metoda wyłącznie do celów szkoleniowych, do wywoływania zapytań HQL
-     * @param query
+     * @param queryStr, params
      * @return
      */
     public Product executeSingleResultQuery(String queryStr, Map<String, Object> parameters) {
