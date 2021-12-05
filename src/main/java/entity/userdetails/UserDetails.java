@@ -11,7 +11,7 @@ public class UserDetails {
 
     private String username;
 
-    @OneToOne
+    @OneToOne(mappedBy = "userDetails", cascade = CascadeType.ALL)
 //    @JoinTable(
 //            name = "userdetails_to_useraddress",
 //            joinColumns = { @JoinColumn(name = "userDetailsId", referencedColumnName = "id")},

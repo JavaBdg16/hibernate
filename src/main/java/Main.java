@@ -1,6 +1,10 @@
 import entity.Product;
 import entity.ProductType;
+import entity.userdetails.UserAddress;
+import entity.userdetails.UserDetails;
 import repository.ProductRepository;
+import repository.UserAddressRepository;
+import repository.UserDetailsRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -110,23 +114,35 @@ public class Main {
 
         productRepository.deleteById(2L);
 
-//        SimpleProductInsert simpleProductInsert
-//                = new SimpleProductInsert(entityManagerFactory);
-//        simpleProductInsert.init();
-//
-//        SimpleProductSelect simpleProductSelect
-//                = new SimpleProductSelect(entityManagerFactory);
-//        simpleProductSelect.init();
-//
-//        MassiveProductWrapper massiveProductWrapper
-//                = new MassiveProductWrapper(entityManagerFactory);
-//        massiveProductWrapper.init();
-//
-//        simpleProductSelect.init();
+        // UserDetails start
 
-//        UserDetailsWrapper userDetailsWrapper =
-//                new UserDetailsWrapper(entityManagerFactory);
-//        userDetailsWrapper.init();
+        UserDetailsRepository userDetailsRepository
+                = new UserDetailsRepository(entityManager);
+
+        UserAddressRepository userAddressRepository
+                = new UserAddressRepository(entityManager);
+
+        UserDetails userDetails = new UserDetails();
+        userDetails.setUsername("jnowak");
+
+        UserAddress userAddress = new UserAddress();
+        userAddress.setCity("Bydgoszcz");
+        userAddress.setStreet("Prosta");
+
+        userDetails.setAddress(userAddress);
+        userAddress.setUserDetails(userDetails);
+
+        // userAddressRepository.create(userAddress);
+        userDetailsRepository.create(userDetails);
+
+        UserDetails ud = userDetailsRepository.read(1L);
+        UserAddress ua = ud.getAddress();
+
+        userDetailsRepository.delete(ud);
+
+        ud = userDetailsRepository.read(1L);
+
+        // UserDetails end
 
         // dla create-drop zamknięcie połączenia spowoduje drop
         // entityManagerFactory.close();

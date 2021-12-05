@@ -14,7 +14,7 @@ public class UserAddress {
     private String street;
 
     @OneToOne
-    // @JoinColumn(name = "UserDetailsId")
+    @JoinColumn(name = "UserDetailsId")
     private UserDetails userDetails;
 
     public long getId() {
