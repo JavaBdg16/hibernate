@@ -1,5 +1,8 @@
 package entity.userdetails;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 
 @Entity
@@ -13,8 +16,10 @@ public class UserAddress {
 
     private String street;
 
+    // TODO: @OneToOne - LAZY, czemu nie działa?
     @OneToOne
     @JoinColumn(name = "UserDetailsId")
+    // @Fetch(FetchMode.SELECT)
     private UserDetails userDetails;
 
     public long getId() {

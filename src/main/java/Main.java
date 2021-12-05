@@ -1,7 +1,9 @@
 import entity.Product;
 import entity.ProductType;
+import entity.userdetails.Mobile;
 import entity.userdetails.UserAddress;
 import entity.userdetails.UserDetails;
+import repository.MobileRepository;
 import repository.ProductRepository;
 import repository.UserAddressRepository;
 import repository.UserDetailsRepository;
@@ -24,6 +26,81 @@ public class Main {
 
     public static void main(String[] args) {
 
+        // product();
+
+        // UserDetails start
+
+        UserDetailsRepository userDetailsRepository
+                = new UserDetailsRepository(entityManager);
+
+        UserAddressRepository userAddressRepository
+                = new UserAddressRepository(entityManager);
+
+        MobileRepository mobileRepository
+                = new MobileRepository(entityManager);
+
+        UserDetails userDetails = new UserDetails();
+        userDetails.setUsername("jnowak");
+
+        UserAddress userAddress = new UserAddress();
+        userAddress.setCity("Bydgoszcz");
+        userAddress.setStreet("Prosta");
+
+        userDetails.setAddress(userAddress);
+        userAddress.setUserDetails(userDetails);
+
+        // userAddressRepository.create(userAddress);
+        userDetailsRepository.create(userDetails);
+
+        UserDetails ud = userDetailsRepository.read(1L);
+        UserAddress ua = ud.getAddress();
+
+        // userDetailsRepository.delete(ud);
+
+        ud = userDetailsRepository.read(4L);
+        ua = ud.getAddress();
+
+        ua = userAddressRepository.read(1L);
+
+        UserDetails ud1 = new UserDetails();
+        ud1.setUsername("anowak");
+
+        UserDetails ud2 = new UserDetails();
+        ud2.setUsername("jkowalczyk");
+
+        UserDetails ud3 = new UserDetails();
+        ud3.setUsername("pmalinowska");
+
+        Mobile mobile = new Mobile();
+        mobile.setBrand("Samsung");
+        mobile.setModel("Galaxy S20");
+
+        ud1.setMobile(mobile);
+        ud2.setMobile(mobile);
+        ud3.setMobile(mobile);
+
+        mobile.addUserDetails(ud1);
+        mobile.addUserDetails(ud2);
+        mobile.addUserDetails(ud3);
+
+        mobileRepository.create(mobile);
+
+        ud.setMobile(mobile);
+        userDetailsRepository.update(ud);
+
+        Mobile mobile1 = mobileRepository.read(7L);
+
+        System.out.println(mobile1.getBrand());
+        System.out.println(mobile1.getModel());
+        System.out.println(mobile1.getUserDetailsList());
+
+        // UserDetails end
+
+        // dla create-drop zamknięcie połączenia spowoduje drop
+        // entityManagerFactory.close();
+    }
+
+    private static void product() {
         ProductRepository productRepository
                 = new ProductRepository(entityManager);
 
@@ -44,7 +121,7 @@ public class Main {
 
         List<Product> products
                 = productRepository.executeListResultQuery(
-                        "FROM Product", null);
+                "FROM Product", null);
 
         System.out.println("FROM Products:");
         System.out.println(products);
@@ -113,38 +190,5 @@ public class Main {
         productRepository.delete(product);
 
         productRepository.deleteById(2L);
-
-        // UserDetails start
-
-        UserDetailsRepository userDetailsRepository
-                = new UserDetailsRepository(entityManager);
-
-        UserAddressRepository userAddressRepository
-                = new UserAddressRepository(entityManager);
-
-        UserDetails userDetails = new UserDetails();
-        userDetails.setUsername("jnowak");
-
-        UserAddress userAddress = new UserAddress();
-        userAddress.setCity("Bydgoszcz");
-        userAddress.setStreet("Prosta");
-
-        userDetails.setAddress(userAddress);
-        userAddress.setUserDetails(userDetails);
-
-        // userAddressRepository.create(userAddress);
-        userDetailsRepository.create(userDetails);
-
-        UserDetails ud = userDetailsRepository.read(1L);
-        UserAddress ua = ud.getAddress();
-
-        userDetailsRepository.delete(ud);
-
-        ud = userDetailsRepository.read(1L);
-
-        // UserDetails end
-
-        // dla create-drop zamknięcie połączenia spowoduje drop
-        // entityManagerFactory.close();
     }
 }

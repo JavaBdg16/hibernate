@@ -1,5 +1,9 @@
 package entity.userdetails;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.ManyToAny;
+
 import javax.persistence.*;
 
 @Entity
@@ -11,13 +15,19 @@ public class UserDetails {
 
     private String username;
 
+    // TODO: @OneToOne - LAZY, czemu nie działa?
     @OneToOne(mappedBy = "userDetails", cascade = CascadeType.ALL)
+    // @Fetch(FetchMode.SELECT)
 //    @JoinTable(
 //            name = "userdetails_to_useraddress",
 //            joinColumns = { @JoinColumn(name = "userDetailsId", referencedColumnName = "id")},
 //            inverseJoinColumns = { @JoinColumn(name = "userAddressId", referencedColumnName = "id")}
 //    )
     private UserAddress address;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "MobileId")
+    private Mobile mobile;
 
     public long getId() {
         return id;
@@ -41,5 +51,13 @@ public class UserDetails {
 
     public void setAddress(UserAddress address) {
         this.address = address;
+    }
+
+    public Mobile getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(Mobile mobile) {
+        this.mobile = mobile;
     }
 }
