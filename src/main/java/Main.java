@@ -75,6 +75,7 @@ public class Main {
         System.out.println(product);
 
         Map<String, Object> params = new HashMap<>();
+        params.put("productId", 666L);
         product = productRepository.executeSingleResultQuery(
                 "FROM Product P WHERE P.id = :productId", params);
 

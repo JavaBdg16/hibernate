@@ -111,11 +111,15 @@ public class ProductRepository {
     }
 
     public void executeUpdateQuery(String queryStr, Map<String, Object> parameters) {
+        entityManager.getTransaction().begin();
+
         Query query = entityManager.createQuery(queryStr);
         if (parameters != null) {
             parameters.forEach((k, v) -> query.setParameter(k, v));
         }
 
         query.executeUpdate();
+
+        entityManager.getTransaction().commit();
     }
 }
