@@ -1,8 +1,10 @@
 import entity.Product;
 import entity.ProductType;
+import entity.User;
 import entity.userdetails.Mobile;
 import entity.userdetails.UserAddress;
 import entity.userdetails.UserDetails;
+import entity.userdetails.Vehicle;
 import repository.MobileRepository;
 import repository.ProductRepository;
 import repository.UserAddressRepository;
@@ -83,6 +85,33 @@ public class Main {
         mobile.addUserDetails(ud2);
         mobile.addUserDetails(ud3);
 
+        Vehicle vehicle1 = new Vehicle();
+        vehicle1.setName("Audi");
+
+        Vehicle vehicle2 = new Vehicle();
+        vehicle2.setName("Mercedes");
+
+        Vehicle vehicle3 = new Vehicle();
+        vehicle3.setName("Opel");
+
+        vehicle1.addUserDetails(ud1);
+        vehicle1.addUserDetails(ud3);
+
+        ud1.addVehicle(vehicle1);
+        ud3.addVehicle(vehicle1);
+
+        vehicle2.addUserDetails(ud2);
+        vehicle2.addUserDetails(ud1);
+
+        ud2.addVehicle(vehicle2);
+        ud1.addVehicle(vehicle2);
+
+        vehicle3.addUserDetails(ud3);
+        vehicle3.addUserDetails(ud2);
+
+        ud3.addVehicle(vehicle3);
+        ud2.addVehicle(vehicle3);
+
         mobile = mobileRepository.create(mobile);
 
         ud.setMobile(mobile);
@@ -93,6 +122,8 @@ public class Main {
         System.out.println(mobile1.getBrand());
         System.out.println(mobile1.getModel());
         System.out.println(mobile1.getUserDetailsList());
+
+        List<UserDetails> list = userDetailsRepository.findAll();
 
         // UserDetails end
 

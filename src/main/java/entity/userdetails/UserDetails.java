@@ -5,6 +5,8 @@ import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.ManyToAny;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class UserDetails {
@@ -28,6 +30,13 @@ public class UserDetails {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "MobileId")
     private Mobile mobile;
+
+    @ManyToMany(mappedBy = "userDetailsList", cascade = CascadeType.ALL)
+    private List<Vehicle> vehicleList;
+
+    public UserDetails() {
+        vehicleList = new ArrayList<>();
+    }
 
     public long getId() {
         return id;
@@ -59,5 +68,9 @@ public class UserDetails {
 
     public void setMobile(Mobile mobile) {
         this.mobile = mobile;
+    }
+
+    public void addVehicle(Vehicle vehicle) {
+        vehicleList.add(vehicle);
     }
 }
