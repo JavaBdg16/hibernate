@@ -43,6 +43,38 @@ public class Product {
     @Enumerated(EnumType.STRING)
     private ProductType productType;
 
+    public long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public Date getTime() {
+        return time;
+    }
+
+    public Date getTimestamp() {
+        return timestamp;
+    }
+
+    public ProductType getProductType() {
+        return productType;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
